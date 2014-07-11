@@ -43,7 +43,7 @@ Bitcoin.ECKey = (function () {
 		this.compressed = (this.compressed == undefined) ? !!ECKey.compressByDefault : this.compressed;
 	};
 
-	ECKey.privateKeyPrefix = 0x97; // mainnet 0x80    testnet 0xEF
+	ECKey.privateKeyPrefix = 0x97; // Anoncoin mainnet 0x97 
 
 	/**
 	* Whether public keys should be returned compressed by default.
@@ -132,7 +132,7 @@ Bitcoin.ECKey = (function () {
 	// Sipa Private Key Wallet Import Format 
 	ECKey.prototype.getBitcoinWalletImportFormat = function () {
 		var bytes = this.getBitcoinPrivateKeyByteArray();
-		bytes.unshift(ECKey.privateKeyPrefix); // prepend 0x80 byte
+		bytes.unshift(ECKey.privateKeyPrefix); // prepend 0x97 byte
 		if (this.compressed) bytes.push(0x01); // append 0x01 byte for compressed format
 		var checksum = Crypto.SHA256(Crypto.SHA256(bytes, { asBytes: true }), { asBytes: true });
 		bytes = bytes.concat(checksum.slice(0, 4));

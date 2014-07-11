@@ -5665,7 +5665,7 @@ Bitcoin.ECKey = (function () {
 		this.compressed = (this.compressed == undefined) ? !!ECKey.compressByDefault : this.compressed;
 	};
 
-	ECKey.privateKeyPrefix = 0x97; // mainnet 0x80    testnet 0xEF
+	ECKey.privateKeyPrefix = 0x97; // Anoncoin mainnet 0x97 
 
 	/**
 	* Whether public keys should be returned compressed by default.
@@ -5754,7 +5754,7 @@ Bitcoin.ECKey = (function () {
 	// Sipa Private Key Wallet Import Format 
 	ECKey.prototype.getBitcoinWalletImportFormat = function () {
 		var bytes = this.getBitcoinPrivateKeyByteArray();
-		bytes.unshift(ECKey.privateKeyPrefix); // prepend 0x80 byte
+		bytes.unshift(ECKey.privateKeyPrefix); // prepend 0x97 byte
 		if (this.compressed) bytes.push(0x01); // append 0x01 byte for compressed format
 		var checksum = Crypto.SHA256(Crypto.SHA256(bytes, { asBytes: true }), { asBytes: true });
 		bytes = bytes.concat(checksum.slice(0, 4));
@@ -6824,12 +6824,12 @@ body, html { height: 99%; }
 					<hr />
 					<div class="privqr">
 						<div class="item">
-							<span class="label"><span id="detaillabelprivwif">Private Key WIF<br />51 characters base58, starts with a</span> <span id="detailwifprefix">'5'</span></span>
+							<span class="label"><span id="detaillabelprivwif">Private Key WIF<br />51 characters base58, starts with a</span> <span id="detailwifprefix">'6'</span></span>
 							<div id="detailqrcodeprivate" class="qrcode_private"></div>
 							<span class="output" id="detailprivwif"></span>
 						</div>
 						<div class="item right">
-							<span class="label"><span id="detaillabelprivwifcomp">Private Key WIF Compressed<br />52 characters base58, starts with a</span> <span id="detailcompwifprefix">'K' or 'L'</span></span>
+							<span class="label"><span id="detaillabelprivwifcomp">Private Key WIF Compressed<br />52 characters base58, starts with a</span> <span id="detailcompwifprefix">'P'</span></span>
 							<div id="detailqrcodeprivatecomp" class="qrcode_private"></div>
 							<span class="output" id="detailprivwifcomp"></span>
 						</div>
